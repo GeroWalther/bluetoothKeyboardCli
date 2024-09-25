@@ -1,6 +1,8 @@
 import Button from '@/components/Button';
 import Input from '@/components/TextInput';
 import TrackpadComponent from '@/components/TrackPad';
+import BleManager from 'react-native-ble-manager';
+
 import React from 'react';
 import {
   KeyboardAvoidingView,
@@ -8,11 +10,26 @@ import {
   Platform,
   StyleSheet,
   Text,
+  SafeAreaView,
 } from 'react-native';
 
-const KeyboardMouseScreen = ({ navigation }: any) => {
+const KeyboardMouseScreen = ({ navigation, route }: any) => {
+  const { peripheralData } = route.params;
+  // console.log('PERIPHERAL DATA: ' + JSON.stringify(peripheralData, null, 2));
+
   const [input, onChangeInput] = React.useState('');
   const [deviceName, _setDeviceName] = React.useState('Geros Mac');
+
+  const disconnectDevice = async () => {
+    try {
+      await BleManager.disconnect(peripheralData.id);
+      console.log('Device disconnected:', peripheralData.id);
+      navigation.navigate('MainScreen');
+    } catch (error) {
+      console.error('Failed to disconnect device:', error);
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       contentContainerStyle={styles.screen}
@@ -20,14 +37,9 @@ const KeyboardMouseScreen = ({ navigation }: any) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       enabled
       keyboardVerticalOffset={Platform.OS === 'ios' ? 500 : 100}>
-      <View>
+      <SafeAreaView>
         <View>
-          <Button
-            disconnect
-            onPress={() => {
-              // TODO: Disconnect the Bluetooth connection and navigate back to the main screen.
-              navigation.navigate('Main');
-            }}>
+          <Button disconnect onPress={disconnectDevice}>
             Disconnect
           </Button>
           <Text className='text-lg font-semibold text-center'>
@@ -38,7 +50,7 @@ const KeyboardMouseScreen = ({ navigation }: any) => {
           <Input onChangeText={onChangeInput} value={input} />
           <TrackpadComponent />
         </View>
-      </View>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };

@@ -1,9 +1,7 @@
 import type { StackScreenProps } from '@react-navigation/stack';
 
 export type RootStackParamList = {
-  Startup: undefined;
-  Example: undefined;
-  Example02: undefined;
+  MainScreen: undefined;
   KeyboardMouseScreen: undefined;
 };
 
