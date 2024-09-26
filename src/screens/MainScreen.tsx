@@ -283,6 +283,7 @@ const MainScreen = ({ navigation }: any) => {
         });
 
         await BleManager.connect(peripheral.id);
+
         console.debug(`[connectPeripheral][${peripheral.id}] connected.`);
 
         setPeripherals((map) => {
@@ -296,6 +297,7 @@ const MainScreen = ({ navigation }: any) => {
         });
 
         // before retrieving services, it is often a good idea to let bonding & connection finish properly
+        // await BleManager.requestMTU(peripheral.id, 232);
         await sleep(900);
 
         /* Test read current RSSI value, retrieve services first */
@@ -354,7 +356,7 @@ const MainScreen = ({ navigation }: any) => {
         });
 
         navigation.navigate('KeyboardMouseScreen', {
-          peripheralData: peripheralData,
+          peripheralData,
         });
       }
     } catch (error) {
