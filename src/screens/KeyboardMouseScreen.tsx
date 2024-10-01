@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import BleManager from 'react-native-ble-manager';
 import { View, StyleSheet, Text, SafeAreaView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
 import { Buffer } from 'buffer';
 
 import Button from '@/components/Button';
@@ -11,20 +10,31 @@ import TrackpadComponent from '@/components/TrackPad';
 
 const KeyboardMouseScreen = ({ navigation, route }: any) => {
   const { peripheralData } = route.params;
-  // console.log('PERIPHERAL DATA: ' + JSON.stringify(peripheralData, null, 2));
 
-  const [input, onChangeInput] = React.useState('');
-  const [deviceName, setDeviceName] = React.useState('Geros Mac');
-  const [sps, setSps] = React.useState([]);
+  const [input, onChangeInput] = useState('');
+  const [deviceName, setDeviceName] = useState('');
+  const [writableCharacteristics, setWritableCharacteristics] = useState([]);
 
   useEffect(() => {
-    console.log(peripheralData.characteristics)
-    const pds = peripheralData.characteristics.filter((ch: any) => ch.properties.hasOwnProperty('Write')).map((ch: any) => ({ sid: ch.service, cid: ch.characteristic }))
-    // const pds = peripheralData.characteristics.map((ch: any) => ({ sid: ch.service, cid: ch.characteristic }))
+    console.log('Available Characteristics:', peripheralData.characteristics);
 
-    setDeviceName(peripheralData.name)
-    setSps(pds)
-  }, [])
+    // Filter characteristics with Write property
+    const writableChars = peripheralData.characteristics
+      .filter((ch: any) => ch.properties.Write)
+      .map((ch: any) => {
+        console.log('Writable Characteristic found:', ch);
+        return { sid: ch.service, cid: ch.characteristic };
+      });
+
+    if (writableChars.length === 0) {
+      console.error('No writable characteristics found.');
+    } else {
+      setWritableCharacteristics(writableChars);
+      console.log('Writable characteristics found:', writableChars);
+    }
+
+    setDeviceName(peripheralData.name || 'Unknown Device');
+  }, [peripheralData]);
 
   const disconnectDevice = async () => {
     try {
@@ -36,32 +46,76 @@ const KeyboardMouseScreen = ({ navigation, route }: any) => {
     }
   };
 
-  const sendInputData = async (e: any) => {
+  const sendInputData = async (keyCode: number) => {
     try {
-      const buffer = Buffer.from(e);
+      if (!writableCharacteristics.length) {
+        console.error('No writable characteristics available.');
+        return;
+      }
 
-      await BleManager
-        .startNotification(peripheralData.id, sps[0]?.sid, sps[0]?.cid)
-        .then(async (response) => {
-          await BleManager.write(
-            peripheralData.id,
-            sps[0].sid,
-            sps[0].cid,
-            buffer.toJSON().data,
-            1024
-          );
-          console.log('Data sent:', e);
-        })
+      // Choose first writable characteristic for experimentation
+      const { sid, cid } = writableCharacteristics[1];
+
+      const report = Buffer.alloc(8);
+      report[0] = 0; // Modifier byte (no modifiers)
+      report[1] = keyCode; // Key code
+      report.fill(0, 2); // Fill the rest with zeros
+
+      await BleManager.writeWithoutResponse(
+        peripheralData.id,
+        sid, // Use the selected writable service
+        cid, // Use the selected writable characteristic
+        report.toJSON().data,
+        1024
+      );
+      console.log('Data sent using characteristic:', cid);
     } catch (error) {
       console.error('Error sending data via BLE:', error);
     }
   };
 
-  function inputHandler(e: any) {
-    onChangeInput(e);
-    // send via BLE manager over to the PC
-    sendInputData(e);
-  }
+  const inputHandler = (text: string) => {
+    onChangeInput(text);
+    const keyCode = getKeyCode(text);
+    if (keyCode) {
+      sendInputData(keyCode);
+    }
+  };
+
+  const getKeyCode = (input: string) => {
+    const keyCodes: { [key: string]: number } = {
+      a: 4,
+      b: 5,
+      c: 6,
+      d: 7,
+      e: 8,
+      f: 9,
+      g: 10,
+      h: 11,
+      i: 12,
+      j: 13,
+      k: 14,
+      l: 15,
+      m: 16,
+      n: 17,
+      o: 18,
+      p: 19,
+      q: 20,
+      r: 21,
+      s: 22,
+      t: 23,
+      u: 24,
+      v: 25,
+      w: 26,
+      x: 27,
+      y: 28,
+      z: 29,
+      Enter: 40,
+      Space: 44,
+      Backspace: 42,
+    };
+    return keyCodes[input] || null;
+  };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.screen}>
@@ -84,6 +138,7 @@ const KeyboardMouseScreen = ({ navigation, route }: any) => {
 };
 
 export default KeyboardMouseScreen;
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
