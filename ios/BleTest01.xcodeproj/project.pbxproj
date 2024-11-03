@@ -12,6 +12,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3D98346B2CD7ED65000A5AA5 /* BLEHIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98346A2CD7ED65000A5AA5 /* BLEHIDManager.swift */; };
+		3D98346D2CD7EE03000A5AA5 /* BLEHIDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D98346C2CD7EE03000A5AA5 /* BLEHIDManager.m */; };
 		7699B88040F8A987B510C191 /* libPods-BleTest01-BleTest01Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-BleTest01-BleTest01Tests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		F571B3882BD7A3F80014213C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F571B3872BD7A3F80014213C /* PrivacyInfo.xcprivacy */; };
@@ -39,6 +41,9 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BleTest01/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-BleTest01-BleTest01Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BleTest01-BleTest01Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-BleTest01.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BleTest01.debug.xcconfig"; path = "Target Support Files/Pods-BleTest01/Pods-BleTest01.debug.xcconfig"; sourceTree = "<group>"; };
+		3D9834692CD7ED64000A5AA5 /* BleTest01-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BleTest01-Bridging-Header.h"; sourceTree = "<group>"; };
+		3D98346A2CD7ED65000A5AA5 /* BLEHIDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEHIDManager.swift; sourceTree = "<group>"; };
+		3D98346C2CD7EE03000A5AA5 /* BLEHIDManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEHIDManager.m; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-BleTest01.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BleTest01.release.xcconfig"; path = "Target Support Files/Pods-BleTest01/Pods-BleTest01.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-BleTest01-BleTest01Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BleTest01-BleTest01Tests.debug.xcconfig"; path = "Target Support Files/Pods-BleTest01-BleTest01Tests/Pods-BleTest01-BleTest01Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-BleTest01.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BleTest01.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +100,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				3D98346A2CD7ED65000A5AA5 /* BLEHIDManager.swift */,
+				3D9834692CD7ED64000A5AA5 /* BleTest01-Bridging-Header.h */,
+				3D98346C2CD7EE03000A5AA5 /* BLEHIDManager.m */,
 			);
 			name = BleTest01;
 			sourceTree = "<group>";
@@ -210,7 +218,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1600;
 					};
 				};
 			};
@@ -417,7 +425,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				3D98346D2CD7EE03000A5AA5 /* BLEHIDManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				3D98346B2CD7ED65000A5AA5 /* BLEHIDManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +503,7 @@
 				DEVELOPMENT_TEAM = W67AW8RFW4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BleTest01/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -505,6 +516,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.onism.bletest;
 				PRODUCT_NAME = BleTest01;
+				SWIFT_OBJC_BRIDGING_HEADER = "BleTest01-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -520,6 +532,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W67AW8RFW4;
 				INFOPLIST_FILE = BleTest01/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -532,6 +545,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.onism.bletest;
 				PRODUCT_NAME = BleTest01;
+				SWIFT_OBJC_BRIDGING_HEADER = "BleTest01-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

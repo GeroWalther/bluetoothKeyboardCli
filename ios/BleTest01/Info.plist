@@ -20,10 +20,6 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>${PRODUCT_NAME} required bloothooth access</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>${PRODUCT_NAME} required bloothooth access</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -35,8 +31,12 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>${PRODUCT_NAME} required bloothooth access</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>${PRODUCT_NAME} required bloothooth access</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Required</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>

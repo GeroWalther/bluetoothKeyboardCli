@@ -12,13 +12,13 @@ export const queryClient = new QueryClient();
 export const storage = new MMKV();
 
 function App() {
-	return (
-		<QueryClientProvider client={queryClient}>
-			<ThemeProvider storage={storage}>
-				<ApplicationNavigator />
-			</ThemeProvider>
-		</QueryClientProvider>
-	);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider storage={storage}>
+        <ApplicationNavigator />
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;
