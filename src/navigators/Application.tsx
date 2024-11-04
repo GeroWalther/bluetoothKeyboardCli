@@ -17,7 +17,7 @@ function ApplicationNavigator() {
     <SafeAreaProvider>
       <NavigationContainer theme={navigationTheme}>
         <Stack.Navigator
-          initialRouteName='KeyboardMouseScreen'
+          initialRouteName='Example02'
           key={variant}
           screenOptions={{ headerShown: false }}>
           <Stack.Screen

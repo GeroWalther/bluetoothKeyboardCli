@@ -2,7 +2,6 @@
 //  BLEHIDManager.m
 //  ble
 //
-//  Created by Hassan Ahmad on 01/11/2024.
 //
 
 #import <Foundation/Foundation.h>

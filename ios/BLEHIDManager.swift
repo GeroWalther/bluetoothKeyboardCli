@@ -2,7 +2,6 @@
 //  BLEHIDManager.swift
 //  keyboard
 //
-//  Created by Hassan Ahmad on 14/10/2024.
 //
 import UIKit
 import Foundation
@@ -360,7 +359,7 @@ class BLEHIDManager: NSObject, CBPeripheralManagerDelegate, ObservableObject {
         peripheralManager?.updateValue(
           Data(
             [
-              0x00, // button
+              0x00, // 0x01 is left 0x02 right click
               0x00, // x
               0xF6, // y
               0x00  // related to something else
